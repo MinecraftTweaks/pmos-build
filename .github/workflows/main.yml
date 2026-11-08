@@ -4,20 +4,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install dependencies
+      - name: Install pmbootstrap
         run: |
           sudo apt-get update
-          sudo apt-get install -y git python3 openssl android-tools-mkbootimg
-          git clone --depth=1 https://postmarketos.org
+          sudo apt-get install -y git python3-pip openssl android-tools-mkbootimg
+          pip install --user --break-system-packages pmbootstrap
       - name: Build recovery zip
         run: |
-          cd pmbootstrap
-          ./pmbootstrap.py config channel edge
-          ./pmbootstrap.py config device samsung-chagallwifi
-          ./pmbootstrap.py config ui none
-          ./pmbootstrap.py config user user
-          ./pmbootstrap.py -y install --android-recovery-zip --password 1234
-          ./pmbootstrap.py export
+          export PATH="$HOME/.local/bin:$PATH"
+          pmbootstrap config channel edge
+          pmbootstrap config device samsung-chagallwifi
+          pmbootstrap config ui none
+          pmbootstrap config user user
+          pmbootstrap -y install --android-recovery-zip --password 1234
+          pmbootstrap export
       - name: Upload ZIP
         uses: actions/upload-artifact@v4
         with:
