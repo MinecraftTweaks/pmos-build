@@ -14,7 +14,7 @@ jobs:
           export PATH="$HOME/.local/bin:$PATH"
           pmbootstrap config channel edge
           pmbootstrap config device samsung-chagallwifi
-          pmbootstrap config ui none
+          pmbootstrap config ui xfce4
           pmbootstrap config user user
           pmbootstrap -y install --android-recovery-zip --password 1234
           pmbootstrap export
